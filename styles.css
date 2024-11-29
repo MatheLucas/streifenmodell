@@ -83,7 +83,7 @@ body {
   align-items: center;
   justify-content: center; /* Zentriert Streifen horizontal */
   flex-wrap: wrap; /* Falls Platz knapp wird, umbrechen */
-  gap: 5px;
+  gap: 0px;
   min-height: 50px;
 }
 

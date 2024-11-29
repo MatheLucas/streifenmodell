@@ -182,16 +182,28 @@ function applyOperation() {
   const upperArea = document.getElementById("upper-strip-area");
   const lowerArea = document.getElementById("lower-strip-area");
 
+  // Streifen mit der absoluten Zahl entfernen
+  let numberToRemove = Math.abs(operation);
+  let removedFromUpper = false;
+
   [...upperArea.children].forEach((strip) => {
-    if (strip.textContent == operation) {
+    if (parseInt(strip.textContent) === numberToRemove && !removedFromUpper) {
       upperArea.removeChild(strip);
+      removedFromUpper = true;
     }
   });
 
-  const resultStrip = lowerArea.querySelector(".strip.result");
-  const newResult = parseInt(resultStrip.textContent) - operation;
-  resultStrip.textContent = newResult;
-  resultStrip.style.width = `${newResult * 20}px`;
+  if (!removedFromUpper) {
+    alert(`Es gibt keinen Streifen mit der Zahl ${numberToRemove} in der oberen Gleichungsseite.`);
+    return;
+  }
 
+  // Aktualisiere den Ergebnisstreifen
+  const resultStrip = lowerArea.querySelector(".strip.result");
+  const newResult = parseInt(resultStrip.textContent) - operation; // Subtrahiere die Zahl
+  resultStrip.textContent = newResult;
+  resultStrip.style.width = `${Math.abs(newResult) * 20}px`;
+
+  // Eingabe leeren
   document.getElementById("operation").value = "";
 }
