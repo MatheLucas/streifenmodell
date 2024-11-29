@@ -200,7 +200,7 @@ function applyOperation() {
 
   // Aktualisiere den Ergebnisstreifen
   const resultStrip = lowerArea.querySelector(".strip.result");
-  const newResult = parseInt(resultStrip.textContent) - operation; // Subtrahiere die Zahl
+  const newResult = parseInt(resultStrip.textContent) + operation; // Subtrahiere die Zahl
   resultStrip.textContent = newResult;
   resultStrip.style.width = `${Math.abs(newResult) * 20}px`;
 
