@@ -1,19 +1,19 @@
-/* Zentriere den gesamten Inhalt */
+/* Allgemeines Layout */
 body {
   font-family: Arial, sans-serif;
   margin: 0;
   padding: 0;
-  height: 100vh;
+  background-color: #f9f9f9;
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: #f9f9f9;
+  min-height: 100vh;
 }
 
 .container {
+  width: 90%;
+  max-width: 600px;
   text-align: center;
-  width: 80%;
-  max-width: 800px;
   padding: 20px;
   background-color: #ffffff;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
@@ -23,8 +23,43 @@ body {
 /* Eingabebereiche */
 .input-section {
   margin: 15px 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
+.input-section label {
+  margin-bottom: 5px;
+  font-size: 1rem;
+}
+
+.input-section input {
+  width: 100%;
+  max-width: 300px;
+  padding: 10px;
+  margin-bottom: 10px;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.input-section button {
+  padding: 10px 20px;
+  font-size: 1rem;
+  background-color: #4caf50;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  width: 100%;
+  max-width: 300px;
+}
+
+.input-section button:hover {
+  background-color: #45a049;
+}
+
+/* Visualisierung */
 #strip-container {
   margin-top: 20px;
 }
@@ -40,16 +75,16 @@ body {
   background-color: #ffffff;
 }
 
-/* Container für Streifenbereiche */
+/* Streifenbereiche */
 #upper-strip-area,
 #lower-strip-area {
   display: flex;
   flex-direction: row;
-  justify-content: center; /* Zentriert die Streifen */
-  align-items: center;     /* Vertikal zentrieren */
+  align-items: center;
+  justify-content: center; /* Zentriert Streifen horizontal */
+  flex-wrap: wrap; /* Falls Platz knapp wird, umbrechen */
+  gap: 5px;
   min-height: 50px;
-  gap: 0; /* Kein Abstand zwischen Streifen */
-  flex-wrap: wrap; /* Verhindert Überlappen bei zu vielen Streifen */
 }
 
 /* Streifen */
@@ -57,17 +92,16 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  text-align: center;
   color: white;
   font-weight: bold;
   cursor: grab;
   border-radius: 5px;
-  margin: 0; /* Kein äußerer Abstand */
-  padding: 0; /* Kein innerer Abstand */
-  flex-shrink: 0; /* Verhindert das Schrumpfen der Streifen */
+  margin: 0;
+  padding: 0;
+  flex-shrink: 0;
+  width: auto; /* Dynamische Breite */
 }
 
-/* Farben der Streifen */
 .strip.x {
   background-color: #4caf50;
 }
@@ -80,8 +114,30 @@ body {
   background-color: #f44336;
 }
 
-/* Effekt beim Ziehen */
+/* Dragging-Effekt */
 .strip:active {
   cursor: grabbing;
   opacity: 0.7;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .container {
+    width: 95%;
+  }
+
+  #strip-area {
+    gap: 15px;
+  }
+
+  #upper-strip-area,
+  #lower-strip-area {
+    flex-wrap: wrap; /* Streifen umbrechen, wenn nötig */
+    justify-content: center; /* Zentriere Streifen bei Umbrechen */
+  }
+
+  .input-section button {
+    font-size: 0.9rem;
+    padding: 8px 15px;
+  }
 }
