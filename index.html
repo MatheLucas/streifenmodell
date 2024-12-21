@@ -141,7 +141,7 @@
     overflow-x: auto;
     justify-content: center;
     position: relative; 
-    width: auto; 
+    width: 100%; /* Set to 100% to utilize available space */
     gap: 0; /* Entfernt Gap */
   }
 
@@ -158,6 +158,7 @@
     user-select: none; 
     margin: 0;
     flex: 0 0 auto;
+    transition: width 0.3s;
   }
 
   .segment.var {
@@ -356,41 +357,27 @@
     <h2>Übungen</h2>
     <p>Klappe einen Bereich aus, um die Aufgaben anzuzeigen.</p>
 
-    <!-- Anfänger (30 Aufgaben) -->
+    <!-- Anfänger (16 Aufgaben) -->
     <div class="accordion-section">
-      <div class="accordion-header" data-target="anfContent">Anfänger (30 Aufgaben)</div>
+      <div class="accordion-header" data-target="anfContent">Anfänger (16 Aufgaben)</div>
       <div class="accordion-content" id="anfContent">
         <ul class="exercise-list">
           <li><a href="#" class="load-ex" data-eq="x+5=12">x + 5 = 12</a></li>
           <li><a href="#" class="load-ex" data-eq="2x=14">2x = 14</a></li>
           <li><a href="#" class="load-ex" data-eq="x-3=7">x - 3 = 7</a></li>
-          <li><a href="#" class="load-ex" data-eq="3x=9">3x = 9</a></li>
           <li><a href="#" class="load-ex" data-eq="x+8=15">x + 8 = 15</a></li>
-          <li><a href="#" class="load-ex" data-eq="4x=20">4x = 20</a></li>
           <li><a href="#" class="load-ex" data-eq="x-6=4">x - 6 = 4</a></li>
-          <li><a href="#" class="load-ex" data-eq="5x=25">5x = 25</a></li>
           <li><a href="#" class="load-ex" data-eq="x+2=10">x + 2 = 10</a></li>
-          <li><a href="#" class="load-ex" data-eq="6x=18">6x = 18</a></li>
           <li><a href="#" class="load-ex" data-eq="x-1=5">x - 1 = 5</a></li>
-          <li><a href="#" class="load-ex" data-eq="7x=21">7x = 21</a></li>
           <li><a href="#" class="load-ex" data-eq="x+4=9">x + 4 = 9</a></li>
-          <li><a href="#" class="load-ex" data-eq="8x=24">8x = 24</a></li>
           <li><a href="#" class="load-ex" data-eq="x-2=6">x - 2 = 6</a></li>
-          <li><a href="#" class="load-ex" data-eq="9x=27">9x = 27</a></li>
           <li><a href="#" class="load-ex" data-eq="x+3=11">x + 3 = 11</a></li>
-          <li><a href="#" class="load-ex" data-eq="10x=30">10x = 30</a></li>
           <li><a href="#" class="load-ex" data-eq="x-4=2">x - 4 = 2</a></li>
-          <li><a href="#" class="load-ex" data-eq="11x=33">11x = 33</a></li>
           <li><a href="#" class="load-ex" data-eq="x+1=7">x + 1 = 7</a></li>
-          <li><a href="#" class="load-ex" data-eq="12x=36">12x = 36</a></li>
           <li><a href="#" class="load-ex" data-eq="x-5=0">x - 5 = 0</a></li>
-          <li><a href="#" class="load-ex" data-eq="13x=39">13x = 39</a></li>
           <li><a href="#" class="load-ex" data-eq="x+6=14">x + 6 = 14</a></li>
-          <li><a href="#" class="load-ex" data-eq="14x=42">14x = 42</a></li>
           <li><a href="#" class="load-ex" data-eq="x-7=-1">x - 7 = -1</a></li>
-          <li><a href="#" class="load-ex" data-eq="15x=45">15x = 45</a></li>
           <li><a href="#" class="load-ex" data-eq="x+7=13">x + 7 = 13</a></li>
-          <li><a href="#" class="load-ex" data-eq="16x=48">16x = 48</a></li>
         </ul>
       </div>
     </div>
@@ -494,8 +481,13 @@ document.addEventListener('DOMContentLoaded', () => {
       let ch = str[i];
       if (/[0-9]/.test(ch)) {
         let start = i;
-        while (i < str.length && /[0-9]/.test(str[i])) i++;
-        tokens.push(new Token('NUMBER', parseFloat(str.slice(start, i))));
+        while (i < str.length && /[0-9.]/.test(str[i])) i++; // Erlaubt Punkte für Dezimalzahlen
+        let numStr = str.slice(start, i);
+        let numValue = parseFloat(numStr);
+        if (isNaN(numValue)) {
+          return { success: false, error: 'Ungültige Zahl: ' + numStr };
+        }
+        tokens.push(new Token('NUMBER', numValue));
         continue;
       }
       if (/[a-z]/i.test(ch)) {
@@ -627,8 +619,9 @@ document.addEventListener('DOMContentLoaded', () => {
     return leftVal - rightVal;
   }
 
+  // Anpassung der sumSegments Funktion
   function sumSegments(segs) {
-    return segs.reduce((acc, s) => acc + (s.value || 0), 0);
+    return segs.reduce((acc, s) => acc + Math.abs(s.value || 0), 0);
   }
 
   // Hilfsfunktion zum Duplizieren von Segmenten
@@ -672,7 +665,7 @@ document.addEventListener('DOMContentLoaded', () => {
           } else if (n.right.type === 'num' && n.left.type === 'var') {
             terms.vars[n.left.name] = (terms.vars[n.left.name] || 0) + n.right.value;
           }
-          // **Neue Bedingung für num * num**
+          // Neue Bedingung für num * num
           else if (n.left.type === 'num' && n.right.type === 'num') {
             terms.constants += n.left.value * n.right.value;
           } else {
@@ -699,7 +692,7 @@ document.addEventListener('DOMContentLoaded', () => {
           if (n.left.type === 'num' && n.right.type === 'var') {
             terms.vars[n.right.name] = (terms.vars[n.right.name] || 0) - n.left.value;
           }
-          // **Neue Bedingung für num * num in traverseNegative**
+          // Neue Bedingung für num * num in traverseNegative
           else if (n.left.type === 'num' && n.right.type === 'num') {
             terms.constants -= n.left.value * n.right.value;
           } else if (n.right.type === 'num' && n.left.type === 'var') {
@@ -822,7 +815,7 @@ document.addEventListener('DOMContentLoaded', () => {
   function checkEquation(eqObj, varValues) {
     let leftVal = evalAST(eqObj.astLeft, varValues);
     let rightVal = evalAST(eqObj.astRight, varValues);
-    return Math.abs(leftVal - rightVal) < 1e-9;
+    return Math.abs(leftVal - rightVal) < 1e-6; // Erhöhte Toleranz für Dezimalzahlen
   }
 
   // Lösen der Gleichungen
@@ -903,6 +896,37 @@ document.addEventListener('DOMContentLoaded', () => {
     return val;
   }
 
+  // Funktion zur Berechnung des Skalierungsfaktors
+  function calculateScalingFactor() {
+    const stripContainers = document.querySelectorAll('.strip-container');
+    if (stripContainers.length === 0) {
+      scalingFactor = 30; // default
+      return;
+    }
+
+    // Find the maximum total across all sides
+    let maxTotal = 0;
+    expressionDatas.forEach(expr => {
+      if (expr.left.total > maxTotal) maxTotal = expr.left.total;
+      if (expr.right.total > maxTotal) maxTotal = expr.right.total;
+    });
+
+    if (maxTotal === 0) {
+      scalingFactor = 30; // fallback
+      return;
+    }
+
+    // Assume we want the maximum total to take up 80% of the container width
+    // Get container width
+    let containerWidth = stripContainers[0].clientWidth; // assuming all strip containers have same width
+    let scaling = (containerWidth * 0.8) / maxTotal;
+
+    // Clamp scalingFactor
+    if (scaling < 10) scalingFactor = 10;
+    else if (scaling > 60) scalingFactor = 60;
+    else scalingFactor = scaling;
+  }
+
   // Variablen und Gleichungen
   let parsedEquationsList = [];
   let variables = [];
@@ -924,6 +948,9 @@ document.addEventListener('DOMContentLoaded', () => {
   const currentEquationText = document.getElementById('currentEquationText'); // Element zur Anzeige der aktuellen Gleichung
   const currentEquationDiv = document.getElementById('currentEquationDiv'); // Container für die aktuelle Gleichung
   const hintButton = document.getElementById('hintButton'); // Hinweis-Button
+
+  // Skalierungsfaktor und Funktion zur Berechnung
+  let scalingFactor = 30; // Initialer Wert, wird später überschrieben
 
   // Strip-Container
   let eq1LeftStrip, eq1RightStrip, eq2LeftStrip, eq2RightStrip;
@@ -993,6 +1020,9 @@ document.addEventListener('DOMContentLoaded', () => {
       expressionDatas.push(createExpressionData(eqObj.astLeft, eqObj.astRight, variables, varVals));
     }
 
+    // Berechnung des Skalierungsfaktors basierend auf der neuen Datenlage
+    calculateScalingFactor();
+
     equationFeedback.style.color = 'green';
     equationFeedback.textContent = "Gleichung(en) übernommen.";
 
@@ -1023,13 +1053,16 @@ document.addEventListener('DOMContentLoaded', () => {
 
     let manipulation = null;
 
+    // Konvertieren von Kommas zu Punkten für korrekte Dezimalzahlen
+    let cleanedInput = manipulationInputStr.replace(',', '.');
+
     // Prüfen, ob die Manipulation eine Zahl ist
-    let num = parseFloat(manipulationInputStr);
+    let num = parseFloat(cleanedInput);
     if (!isNaN(num)) {
       manipulation = { type: 'constant', value: num };
     } else {
       // Prüfen, ob die Manipulation ein Variablelement ist, z.B. "-x" oder "+y"
-      let varMatch = manipulationInputStr.match(/^([+-]?)([a-z])$/i);
+      let varMatch = cleanedInput.match(/^([+-]?)([a-z])$/i);
       if (varMatch) {
         let sign = varMatch[1];
         let varName = varMatch[2].toLowerCase();
@@ -1064,6 +1097,9 @@ document.addEventListener('DOMContentLoaded', () => {
       expressionDatas.push(createExpressionData(eqObj.astLeft, eqObj.astRight, variables, varVals));
     }
 
+    // Berechnung des Skalierungsfaktors basierend auf den aktualisierten Daten
+    calculateScalingFactor();
+
     manipFeedback.style.color = 'green';
     manipFeedback.textContent = 'Operation angewendet.';
     updateStrips();
@@ -1077,7 +1113,8 @@ document.addEventListener('DOMContentLoaded', () => {
     let varValues = {};
     for (let v of variables) {
       const inp = document.getElementById('var_' + v);
-      const val = parseFloat(inp.value);
+      let valStr = inp.value.trim().replace(',', '.'); // Konvertieren von Kommas zu Punkten
+      const val = parseFloat(valStr);
       if (isNaN(val)) {
         solutionFeedback.style.color = 'red';
         solutionFeedback.textContent = 'Bitte gültige Zahl für ' + v + ' eingeben.';
@@ -1212,6 +1249,8 @@ document.addEventListener('DOMContentLoaded', () => {
       seg.addEventListener('touchend', (ev) => {
         if (dragSegment && dragOverContainer) {
           dragOverContainer.appendChild(dragSegment);
+          // Aktualisiere die Gleichungen basierend auf der neuen Position
+          updateEquationAfterDrag();
         }
         seg.style.opacity = '1';
         dragSegment = null;
@@ -1229,8 +1268,30 @@ document.addEventListener('DOMContentLoaded', () => {
       ev.preventDefault();
       if (dragSegment && dragOverContainer === container) {
         container.appendChild(dragSegment);
+        // Aktualisiere die Gleichungen basierend auf der neuen Position
+        updateEquationAfterDrag();
       }
     });
+  }
+
+  // Funktion zur Aktualisierung der Gleichungen nach Drag & Drop
+  function updateEquationAfterDrag() {
+    // Hier können Sie die Position der Segmente analysieren und die Gleichungen entsprechend anpassen.
+    // Dies ist eine komplexe Aufgabe und erfordert eine genaue Implementierung basierend auf der gewünschten Logik.
+    // Für den Moment wird einfach die Visualisierung aktualisiert.
+
+    // Re-evaluate varVals based on current arrangement
+    let varVals = solveVars(parsedEquationsList, variables);
+    expressionDatas = [];
+    for (let eqObj of parsedEquationsList) {
+      expressionDatas.push(createExpressionData(eqObj.astLeft, eqObj.astRight, variables, varVals));
+    }
+
+    // Berechnung des Skalierungsfaktors basierend auf den aktualisierten Daten
+    calculateScalingFactor();
+
+    updateStrips();
+    updateCurrentEquation();
   }
 
   // Expandieren der AST-Knoten zu Segmenten
@@ -1286,7 +1347,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (segments.length === 0) {
       segments.push({ type: 'const', value: 0 });
     } else {
-      segments = segments.filter(s => s.value !== 0 || s.type === 'const' && s.value === 0);
+      segments = segments.filter(s => s.value !== 0 || (s.type === 'const' && s.value === 0));
     }
     return segments;
   }
@@ -1315,7 +1376,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (s.value < 0 && s.type === 'var') d.classList.add('negative-var'); // Hinzufügen der 'negative-var' Klasse
         if (s.type === 'const' && s.value === 0) d.classList.add('zero'); // Hinzufügen der 'zero' Klasse
         d.textContent = (s.type === 'var') ? (s.value < 0 ? '-' + s.var : s.var) : s.value.toString(); // Anzeige des Vorzeichens bei Konstanten und Variablen
-        d.style.width = `${Math.abs(s.value) * 30}px`; // Skalierung angepasst für bessere Sichtbarkeit
+        d.style.width = `${Math.abs(s.value) * scalingFactor}px`; // Dynamische Skalierung
         eq1LeftStrip.appendChild(d);
       });
 
@@ -1328,15 +1389,12 @@ document.addEventListener('DOMContentLoaded', () => {
         if (s.value < 0 && s.type === 'var') d.classList.add('negative-var'); // Hinzufügen der 'negative-var' Klasse
         if (s.type === 'const' && s.value === 0) d.classList.add('zero'); // Hinzufügen der 'zero' Klasse
         d.textContent = (s.type === 'var') ? (s.value < 0 ? '-' + s.var : s.var) : s.value.toString(); // Anzeige des Vorzeichens bei Konstanten und Variablen
-        d.style.width = `${Math.abs(s.value) * 30}px`; // Skalierung angepasst
+        d.style.width = `${Math.abs(s.value) * scalingFactor}px`; // Dynamische Skalierung
         eq1RightStrip.appendChild(d);
       });
 
       makeSegmentsDraggable(eq1LeftStrip);
       makeSegmentsDraggable(eq1RightStrip);
-
-      // Synchronisieren der Streifenlängen
-      synchronizeStripLengths(eq1LeftStrip, expressionDatas[0].right.total);
     } else {
       eq1LeftStrip.innerHTML = '';
       eq1RightStrip.innerHTML = '';
@@ -1352,7 +1410,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (s.value < 0 && s.type === 'var') d.classList.add('negative-var'); // Hinzufügen der 'negative-var' Klasse
         if (s.type === 'const' && s.value === 0) d.classList.add('zero'); // Hinzufügen der 'zero' Klasse
         d.textContent = (s.type === 'var') ? (s.value < 0 ? '-' + s.var : s.var) : s.value.toString(); // Anzeige des Vorzeichens bei Konstanten und Variablen
-        d.style.width = `${Math.abs(s.value) * 30}px`;
+        d.style.width = `${Math.abs(s.value) * scalingFactor}px`;
         eq1LeftStrip.appendChild(d);
       });
 
@@ -1364,7 +1422,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (s.value < 0 && s.type === 'var') d.classList.add('negative-var'); // Hinzufügen der 'negative-var' Klasse
         if (s.type === 'const' && s.value === 0) d.classList.add('zero'); // Hinzufügen der 'zero' Klasse
         d.textContent = (s.type === 'var') ? (s.value < 0 ? '-' + s.var : s.var) : s.value.toString(); // Anzeige des Vorzeichens bei Konstanten und Variablen
-        d.style.width = `${Math.abs(s.value) * 30}px`;
+        d.style.width = `${Math.abs(s.value) * scalingFactor}px`;
         eq1RightStrip.appendChild(d);
       });
 
@@ -1380,7 +1438,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (s.value < 0 && s.type === 'var') d.classList.add('negative-var'); // Hinzufügen der 'negative-var' Klasse
         if (s.type === 'const' && s.value === 0) d.classList.add('zero'); // Hinzufügen der 'zero' Klasse
         d.textContent = (s.type === 'var') ? (s.value < 0 ? '-' + s.var : s.var) : s.value.toString(); // Anzeige des Vorzeichens bei Konstanten und Variablen
-        d.style.width = `${Math.abs(s.value) * 30}px`;
+        d.style.width = `${Math.abs(s.value) * scalingFactor}px`;
         eq2LeftStrip.appendChild(d);
       });
 
@@ -1392,61 +1450,13 @@ document.addEventListener('DOMContentLoaded', () => {
         if (s.value < 0 && s.type === 'var') d.classList.add('negative-var'); // Hinzufügen der 'negative-var' Klasse
         if (s.type === 'const' && s.value === 0) d.classList.add('zero'); // Hinzufügen der 'zero' Klasse
         d.textContent = (s.type === 'var') ? (s.value < 0 ? '-' + s.var : s.var) : s.value.toString(); // Anzeige des Vorzeichens bei Konstanten und Variablen
-        d.style.width = `${Math.abs(s.value) * 30}px`;
+        d.style.width = `${Math.abs(s.value) * scalingFactor}px`;
         eq2RightStrip.appendChild(d);
       });
 
       makeSegmentsDraggable(eq2LeftStrip);
       makeSegmentsDraggable(eq2RightStrip);
-
-      // Synchronisieren der Streifenlängen für beide Gleichungen
-      synchronizeStripLengths(eq1LeftStrip, expressionDatas[0].right.total);
-      synchronizeStripLengths(eq2LeftStrip, expressionDatas[1].right.total);
     }
-  }
-
-  // Synchronisierung der Streifenlängen ohne Skalierung
-  function synchronizeStripLengths(leftContainer, targetTotal) {
-    const leftSegments = leftContainer.querySelectorAll('.segment');
-    const currentTotal = sumSegments(
-      Array.from(leftSegments).map(seg => {
-        const text = seg.textContent;
-        let value = 0;
-        if (seg.classList.contains('var')) {
-          // Extrahiere den Koeffizienten der Variable
-          let match = text.match(/^([-]?)([a-z])$/i);
-          if (match) {
-            let sign = match[1] === '-' ? -1 : 1;
-            value = sign * 1; // Annahme: Koeffizient 1 für Variablen
-          }
-        } else if (seg.classList.contains('const')) {
-          value = parseFloat(text);
-        }
-        return isNaN(value) ? 0 : Math.abs(value); // Absolute Werte für korrekte Berechnung
-      })
-    );
-
-    if (currentTotal === 0) return;
-
-    const ratio = targetTotal / currentTotal;
-
-    leftSegments.forEach(seg => {
-      const text = seg.textContent;
-      let value = 0;
-      if (seg.classList.contains('var')) {
-        // Extrahiere den Koeffizienten der Variable
-        let match = text.match(/^([-]?)([a-z])$/i);
-        if (match) {
-          let sign = match[1] === '-' ? -1 : 1;
-          value = sign * 1; // Annahme: Koeffizient 1 für Variablen
-        }
-      } else if (seg.classList.contains('const')) {
-        value = parseFloat(text);
-      }
-      if (!isNaN(value)) {
-        seg.style.width = `${Math.abs(value) * ratio * 30}px`; // Anpassung der Breite basierend auf dem Verhältnis
-      }
-    });
   }
 
   // Hilfsfunktion zur Umwandlung des AST in einen String
@@ -1511,6 +1521,16 @@ document.addEventListener('DOMContentLoaded', () => {
         content.style.display = 'block';
       }
     });
+  });
+
+  // Resize Event Listener mit Debouncing
+  let resizeTimeout;
+  window.addEventListener('resize', () => {
+    clearTimeout(resizeTimeout);
+    resizeTimeout = setTimeout(() => {
+      calculateScalingFactor();
+      updateStrips();
+    }, 200); // Verzögerung von 200ms
   });
 
 });
