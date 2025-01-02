@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Digitales Streifenmodell (Overlay, Negative Variablen)</title>
+  <title>Digitales Streifenmodell</title>
   <style>
     /**************************************************
      *                GRUNDLEGENDE STILE
@@ -96,7 +96,7 @@
     .feedback {
       margin-top: 10px;
       font-weight: bold;
-      min-height: 20px;
+      min-height: 0px;
       text-align: center;
     }
 
@@ -112,20 +112,34 @@
       box-shadow: 0 1px 3px rgba(0,0,0,0.1);
       text-align: center;
     }
+    .workspace h3 {
+      margin-bottom: 0;
+    }
+    #showEquationBtn {
+      margin-top: 0;
+      margin-bottom: 0; 
+    }
+    .eq-label {
+      font-size: 0.8em; 
+      color: #888;
+      margin-top: 0;
+      margin-bottom: 5px;
+      display: none;
+    }
     .strip-area {
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 20px;
+      gap: 0; 
       margin-bottom: 20px;
       width: 100%;
     }
     .eq-container {
       display: flex;
       flex-direction: column;
-      gap: 10px;
       width: 100%;
       align-items: center;
+      margin-top: 10px; 
     }
     .strip-wrapper {
       border: 1px solid #ccc;
@@ -137,13 +151,15 @@
       justify-content: flex-start;
       position: relative;
       margin: 0 auto;
+      overflow: hidden;
+      transform-origin: 0 0;
     }
     .strip-container {
       display: flex;
       flex-wrap: nowrap;
       align-items: center;
       position: relative;
-      gap: 0; /* kein Abstand */
+      gap: 0; 
       margin: 0;
       overflow: visible;
     }
@@ -172,7 +188,6 @@
       background: #4A90E2; 
       color: #fff;
     }
-    /* Negative Overlay für Teilüberdeckungen */
     .segment.negative {
       background: rgba(233, 78, 119, 0.6);
       color: #fff;
@@ -184,7 +199,6 @@
       right: 0;
       opacity: 0.9;
     }
-
     .seg-base-zero {
       background: #dcdcdc;
       color: #444;
@@ -320,7 +334,7 @@
 
 <body>
 <header>
-  <h1>Digitales Streifenmodell (Overlay, Negative Variablen)</h1>
+  <h1>Digitales Streifenmodell</h1>
 </header>
 
 <nav>
@@ -376,12 +390,10 @@
     </div>
   </section>
 
-  <!-- ======================= ÜBUNGEN ======================= -->
   <section id="exercises" class="tab-content hidden">
     <h2>Übungen</h2>
     <p>Klappe einen Bereich aus, um die Aufgaben anzuzeigen.</p>
 
-    <!-- Anfänger (15 Aufgaben) -->
     <div class="accordion-section">
       <div class="accordion-header" data-target="anfContent">Anfänger (15 Aufgaben)</div>
       <div class="accordion-content" id="anfContent">
@@ -405,7 +417,6 @@
       </div>
     </div>
 
-    <!-- Fortgeschrittene (35 Aufgaben) -->
     <div class="accordion-section">
       <div class="accordion-header" data-target="fortgContent">Fortgeschrittene (35 Aufgaben)</div>
       <div class="accordion-content" id="fortgContent">
@@ -416,59 +427,58 @@
           <li><a href="#" class="load-ex" data-eq="4x-5=15">4x - 5 = 15</a></li>
           <li><a href="#" class="load-ex" data-eq="6k+2=20">6k + 2 = 20</a></li>
           <li><a href="#" class="load-ex" data-eq="7j-3=25">7j - 3 = 25</a></li>
-          <li><a href="#" class="load-ex" data-eq="2(x+3)=10">2(x + 3) = 10</a></li>
-          <li><a href="#" class="load-ex" data-eq="3(k-2)=9">3(k - 2) = 9</a></li>
-          <li><a href="#" class="load-ex" data-eq="4(j+1)=16">4(j + 1) = 16</a></li>
-          <li><a href="#" class="load-ex" data-eq="5(x-2)=15">5(x - 2) = 15</a></li>
-          <li><a href="#" class="load-ex" data-eq="x+4=2x-1">x + 4 = 2x - 1</a></li>
-          <li><a href="#" class="load-ex" data-eq="k-3=2k+2">k - 3 = 2k + 2</a></li>
-          <li><a href="#" class="load-ex" data-eq="j+5=j+5">j + 5 = j + 5</a></li>
-          <li><a href="#" class="load-ex" data-eq="2x+3k=13">2x + 3k = 13</a></li>
-          <li><a href="#" class="load-ex" data-eq="3(x-1)+2=11">3(x - 1) + 2 = 11</a></li>
-          <li><a href="#" class="load-ex" data-eq="4k-2=14">4k - 2 = 14</a></li>
-          <li><a href="#" class="load-ex" data-eq="5j+5=30">5j + 5 = 30</a></li>
-          <li><a href="#" class="load-ex" data-eq="2(x+5)=20">2(x + 5) = 20</a></li>
-          <li><a href="#" class="load-ex" data-eq="3(k+2)=21">3(k + 2) = 21</a></li>
-          <li><a href="#" class="load-ex" data-eq="4(j-1)=12">4(j - 1) = 12</a></li>
-          <li><a href="#" class="load-ex" data-eq="5x-10=15">5x - 10 = 15</a></li>
-          <li><a href="#" class="load-ex" data-eq="6k+4=22">6k + 4 = 22</a></li>
-          <li><a href="#" class="load-ex" data-eq="7j-7=28">7j - 7 = 28</a></li>
-          <li><a href="#" class="load-ex" data-eq="x+2x=9">x + 2x = 9</a></li>
-          <li><a href="#" class="load-ex" data-eq="k-(k-3)=3">k - (k-3) = 3</a></li>
-          <li><a href="#" class="load-ex" data-eq="j+(j+1)=7">j + (j+1) = 7</a></li>
-          <li><a href="#" class="load-ex" data-eq="2x-x=5">2x - x = 5</a></li>
-          <li><a href="#" class="load-ex" data-eq="3k+k=16">3k + k = 16</a></li>
-          <li><a href="#" class="load-ex" data-eq="4j-2j=10">4j - 2j = 10</a></li>
-          <li><a href="#" class="load-ex" data-eq="x+3=2x+1">x + 3 = 2x + 1</a></li>
-          <li><a href="#" class="load-ex" data-eq="k+4=k+4">k + 4 = k + 4</a></li>
-          <li><a href="#" class="load-ex" data-eq="j-2=j-2">j - 2 = j - 2</a></li>
-          <li><a href="#" class="load-ex" data-eq="2(x+2)-x=4">2(x + 2) - x = 4</a></li>
-          <li><a href="#" class="load-ex" data-eq="3(k-1)+k=10">3(k - 1) + k = 10</a></li>
-          <li><a href="#" class="load-ex" data-eq="4(j+0.5)-j=6">4(j + 0.5) - j = 6</a></li>
-          <li><a href="#" class="load-ex" data-eq="x*2+3=11">x × 2 + 3 = 11</a></li>
-          <li><a href="#" class="load-ex" data-eq="k+5=12">k + 5 = 12</a></li>
-          <li><a href="#" class="load-ex" data-eq="j-1=4">j - 1 = 4</a></li>
-          <li><a href="#" class="load-ex" data-eq="2k+4=10">2k + 4 = 10</a></li>
-          <li><a href="#" class="load-ex" data-eq="3x-6=9">3x - 6 = 9</a></li>
+          <li><a href="#" class="load-ex" data-eq="2(x+3)=10">2(x+3)=10</a></li>
+          <li><a href="#" class="load-ex" data-eq="3(k-2)=9">3(k-2)=9</a></li>
+          <li><a href="#" class="load-ex" data-eq="4(j+1)=16">4(j+1)=16</a></li>
+          <li><a href="#" class="load-ex" data-eq="5(x-2)=15">5(x-2)=15</a></li>
+          <li><a href="#" class="load-ex" data-eq="x+4=2x-1">x+4=2x-1</a></li>
+          <li><a href="#" class="load-ex" data-eq="k-3=2k+2">k-3=2k+2</a></li>
+          <li><a href="#" class="load-ex" data-eq="j+5=j+5">j+5=j+5</a></li>
+          <li><a href="#" class="load-ex" data-eq="2x+3k=13">2x+3k=13</a></li>
+          <li><a href="#" class="load-ex" data-eq="3(x-1)+2=11">3(x-1)+2=11</a></li>
+          <li><a href="#" class="load-ex" data-eq="4k-2=14">4k-2=14</a></li>
+          <li><a href="#" class="load-ex" data-eq="5j+5=30">5j+5=30</a></li>
+          <li><a href="#" class="load-ex" data-eq="2(x+5)=20">2(x+5)=20</a></li>
+          <li><a href="#" class="load-ex" data-eq="3(k+2)=21">3(k+2)=21</a></li>
+          <li><a href="#" class="load-ex" data-eq="4(j-1)=12">4(j-1)=12</a></li>
+          <li><a href="#" class="load-ex" data-eq="5x-10=15">5x-10=15</a></li>
+          <li><a href="#" class="load-ex" data-eq="6k+4=22">6k+4=22</a></li>
+          <li><a href="#" class="load-ex" data-eq="7j-7=28">7j-7=28</a></li>
+          <li><a href="#" class="load-ex" data-eq="x+2x=9">x+2x=9</a></li>
+          <li><a href="#" class="load-ex" data-eq="k-(k-3)=3">k-(k-3)=3</a></li>
+          <li><a href="#" class="load-ex" data-eq="j+(j+1)=7">j+(j+1)=7</a></li>
+          <li><a href="#" class="load-ex" data-eq="2x-x=5">2x-x=5</a></li>
+          <li><a href="#" class="load-ex" data-eq="3k+k=16">3k+k=16</a></li>
+          <li><a href="#" class="load-ex" data-eq="4j-2j=10">4j-2j=10</a></li>
+          <li><a href="#" class="load-ex" data-eq="x+3=2x+1">x+3=2x+1</a></li>
+          <li><a href="#" class="load-ex" data-eq="k+4=k+4">k+4=k+4</a></li>
+          <li><a href="#" class="load-ex" data-eq="j-2=j-2">j-2=j-2</a></li>
+          <li><a href="#" class="load-ex" data-eq="2(x+2)-x=4">2(x+2)-x=4</a></li>
+          <li><a href="#" class="load-ex" data-eq="3(k-1)+k=10">3(k-1)+k=10</a></li>
+          <li><a href="#" class="load-ex" data-eq="4(j+0.5)-j=6">4(j+0.5)-j=6</a></li>
+          <li><a href="#" class="load-ex" data-eq="x*2+3=11">x*2+3=11</a></li>
+          <li><a href="#" class="load-ex" data-eq="k+5=12">k+5=12</a></li>
+          <li><a href="#" class="load-ex" data-eq="j-1=4">j-1=4</a></li>
+          <li><a href="#" class="load-ex" data-eq="2k+4=10">2k+4=10</a></li>
+          <li><a href="#" class="load-ex" data-eq="3x-6=9">3x-6=9</a></li>
         </ul>
       </div>
     </div>
 
-    <!-- Profi (10 Aufgaben, zwei Variablen) -->
     <div class="accordion-section">
       <div class="accordion-header" data-target="profiContent">Profi (10 Aufgaben, zwei Variablen)</div>
       <div class="accordion-content" id="profiContent">
         <ul class="exercise-list">
-          <li><a href="#" class="load-ex2" data-eq1="x+y=10" data-eq2="2x-y=5">Gleichungssystem 1:<br>x + y = 10<br>2x - y = 5</a></li>
-          <li><a href="#" class="load-ex2" data-eq1="3k+2j=16" data-eq2="k-j=2">Gleichungssystem 2:<br>3k + 2j = 16<br>k - j = 2</a></li>
-          <li><a href="#" class="load-ex2" data-eq1="2x+3y=13" data-eq2="x-y=1">Gleichungssystem 3:<br>2x + 3y = 13<br>x - y = 1</a></li>
-          <li><a href="#" class="load-ex2" data-eq1="4a+b=18" data-eq2="a+2b=14">Gleichungssystem 4:<br>4a + b = 18<br>a + 2b = 14</a></li>
-          <li><a href="#" class="load-ex2" data-eq1="5m-2n=9" data-eq2="3m+n=12">Gleichungssystem 5:<br>5m - 2n = 9<br>3m + n = 12</a></li>
-          <li><a href="#" class="load-ex2" data-eq1="x+2y=7" data-eq2="2x-y=4">Gleichungssystem 6:<br>x + 2y = 7<br>2x - y = 4</a></li>
-          <li><a href="#" class="load-ex2" data-eq1="3k-j=5" data-eq2="k+j=7">Gleichungssystem 7:<br>3k - j = 5<br>k + j = 7</a></li>
-          <li><a href="#" class="load-ex2" data-eq1="2x+4y=14" data-eq2="x-y=1">Gleichungssystem 8:<br>2x + 4y = 14<br>x - y = 1</a></li>
-          <li><a href="#" class="load-ex2" data-eq1="4m+n=20" data-eq2="m+2n=12">Gleichungssystem 9:<br>4m + n = 20<br>m + 2n = 12</a></li>
-          <li><a href="#" class="load-ex2" data-eq1="x+y=9" data-eq2="x-y=1">Gleichungssystem 10:<br>x + y = 9<br>x - y = 1</a></li>
+          <li><a href="#" class="load-ex2" data-eq1="x+y=10" data-eq2="2x-y=5">Gleichungssystem 1:<br>x+y=10<br>2x-y=5</a></li>
+          <li><a href="#" class="load-ex2" data-eq1="3k+2j=16" data-eq2="k-j=2">Gleichungssystem 2:<br>3k+2j=16<br>k-j=2</a></li>
+          <li><a href="#" class="load-ex2" data-eq1="2x+3y=13" data-eq2="x-y=1">Gleichungssystem 3:<br>2x+3y=13<br>x-y=1</a></li>
+          <li><a href="#" class="load-ex2" data-eq1="4a+b=18" data-eq2="a+2b=14">Gleichungssystem 4:<br>4a+b=18<br>a+2b=14</a></li>
+          <li><a href="#" class="load-ex2" data-eq1="5m-2n=9" data-eq2="3m+n=12">Gleichungssystem 5:<br>5m-2n=9<br>3m+n=12</a></li>
+          <li><a href="#" class="load-ex2" data-eq1="x+2y=7" data-eq2="2x-y=4">Gleichungssystem 6:<br>x+2y=7<br>2x-y=4</a></li>
+          <li><a href="#" class="load-ex2" data-eq1="3k-j=5" data-eq2="k+j=7">Gleichungssystem 7:<br>3k-j=5<br>k+j=7</a></li>
+          <li><a href="#" class="load-ex2" data-eq1="2x+4y=14" data-eq2="x-y=1">Gleichungssystem 8:<br>2x+4y=14<br>x-y=1</a></li>
+          <li><a href="#" class="load-ex2" data-eq1="4m+n=20" data-eq2="m+2b=12">Gleichungssystem 9:<br>4m+n=20<br>m+2b=12</a></li>
+          <li><a href="#" class="load-ex2" data-eq1="x+y=9" data-eq2="x-y=1">Gleichungssystem 10:<br>x+y=9<br>x-y=1</a></li>
         </ul>
       </div>
     </div>
@@ -487,14 +497,8 @@
 </footer>
 
 <script>
-// ALLES IN EINEM EINZIGEN DOMContentLoaded-BLOCK
 document.addEventListener('DOMContentLoaded', () => {
 
-/************************************
- * GESAMTER CODE BEGINNT HIER
- ************************************/
-
-// ============= ALLE DOM-ELEMENTE ==================
 const eq1Input = document.getElementById('eq1');
 const eq2Input = document.getElementById('eq2');
 const eq2ContainerEl = document.getElementById('eq2Container');
@@ -514,7 +518,6 @@ const applyIntermediateResultBtn = document.getElementById('applyIntermediateRes
 const showEquationBtn = document.getElementById('showEquationBtn');
 const equationTip = document.getElementById('equationTip');
 
-// ============= GLOBALE VARS =============
 let parsedEquationsList = [];
 let variables = [];
 let expressionDatas = [];
@@ -523,37 +526,25 @@ let dragOverContainer=null;
 let globalVarVals={};
 let substitutions={};
 let tipOpen=false;
-
-// WICHTIG: eq1LeftStrip, eq1RightStrip, eq2LeftStrip, eq2RightStrip => EINMAL DEKLARIERT
 let eq1LeftStrip=null, eq1RightStrip=null;
 let eq2LeftStrip=null, eq2RightStrip=null;
 
 const PX_FACTOR=30;
 const WRAPPER_PADDING=20;
 
-
-/***************************************************
- * 1) FUNKTION: duplicateSegments
- ***************************************************/
 function duplicateSegments(segs, factor){
   const out=[];
   const absFactor=Math.abs(factor);
   for(let i=0;i<absFactor;i++){
     for(const s of segs){
       let copy={...s};
-      if(factor<0){
-        copy.value=-copy.value;
-      }
+      if(factor<0) copy.value=-copy.value;
       out.push(copy);
     }
   }
   return out;
 }
 
-
-/***************************************************
- * 2) FUNKTION: divideOutConstant
- ***************************************************/
 function divideOutConstant(node,c){
   if(!node)return node;
   if(node.type==='num'){
@@ -561,12 +552,8 @@ function divideOutConstant(node,c){
   }
   if(node.type==='op'&&node.op==='*'){
     let L=node.left,R=node.right;
-    if(L.type==='num'&&Math.abs(L.value-c)<1e-9){
-      return R;
-    }
-    if(R.type==='num'&&Math.abs(R.value-c)<1e-9){
-      return L;
-    }
+    if(L.type==='num'&&Math.abs(L.value-c)<1e-9) return R;
+    if(R.type==='num'&&Math.abs(R.value-c)<1e-9) return L;
     return{type:'op',op:'*',left:divideOutConstant(L,c),right:R};
   }
   if(node.type==='op'&&(node.op==='+'||node.op==='-')){
@@ -597,10 +584,6 @@ function divideOutConstant(node,c){
   };
 }
 
-
-/***************************************************
- * 3) TOKEN + PARSER
- ***************************************************/
 class Token {
   constructor(type,value){
     this.type=type;this.value=value;
@@ -615,12 +598,10 @@ function tokenize(str){
     let ch=str[i];
     if(/[0-9]/.test(ch)){
       let start=i;
-      while(i<str.length&&/[0-9.]/.test(str[i]))i++;
+      while(i<str.length&&/[0-9.]/.test(str[i])) i++;
       let numStr=str.slice(start,i);
       let numVal=parseFloat(numStr);
-      if(isNaN(numVal)){
-        return{success:false,error:'Ungültige Zahl: '+numStr};
-      }
+      if(isNaN(numVal)) return{success:false,error:'Ungültige Zahl: '+numStr};
       tokens.push(new Token('NUMBER',numVal));
       continue;
     }
@@ -645,23 +626,15 @@ function parseEquation(eq){
   if(!tokRes.success)return tokRes;
   let tokens=tokRes.tokens;
   let eqIndex=tokens.findIndex(t=>t.type==='=');
-  if(eqIndex===-1){
-    return{success:false,error:'Kein "=" gefunden.'};
-  }
+  if(eqIndex===-1) return{success:false,error:'Kein "=" gefunden.'};
   let leftTokens=tokens.slice(0,eqIndex);
   let rightTokens=tokens.slice(eqIndex+1);
-
   let leftParse=parseExp(leftTokens,0);
   if(!leftParse.success)return leftParse;
-  if(leftParse.nextPos!==leftTokens.length){
-    return{success:false,error:'Ungültiger Ausdruck links von "=".'};
-  }
+  if(leftParse.nextPos!==leftTokens.length) return{success:false,error:'Ungültiger Ausdruck links von "=".'};
   let rightParse=parseExp(rightTokens,0);
   if(!rightParse.success)return rightParse;
-  if(rightParse.nextPos!==rightTokens.length){
-    return{success:false,error:'Ungültiger Ausdruck rechts von "=".'};
-  }
-
+  if(rightParse.nextPos!==rightTokens.length) return{success:false,error:'Ungültiger Ausdruck rechts von "=".'};
   let vars=collectVars(leftParse.node).concat(collectVars(rightParse.node));
   vars=[...new Set(vars)];
   if(!isLinearExpr(leftParse.node)||!isLinearExpr(rightParse.node)){
@@ -686,7 +659,7 @@ function parseExp(tokens,pos){
     let rightRes=parseTerm(tokens,p);
     if(!rightRes.success)return rightRes;
     p=rightRes.nextPos;
-    node={type:'op',op,left:node,right:rightRes.node};
+    node={type:'op',op, left:node, right:rightRes.node};
   }
   return{success:true,node,nextPos:p};
 }
@@ -702,15 +675,13 @@ function parseTerm(tokens,pos){
     let rightRes=parseFactor(tokens,p);
     if(!rightRes.success)return rightRes;
     p=rightRes.nextPos;
-    node={type:'op',op,left:node,right:rightRes.node};
+    node={type:'op',op, left:node, right:rightRes.node};
   }
   return{success:true,node,nextPos:p};
 }
 
 function parseFactor(tokens,pos){
-  if(pos>=tokens.length){
-    return{success:false,error:'Unerwartetes Ende'};
-  }
+  if(pos>=tokens.length) return{success:false,error:'Unerwartetes Ende'};
   let t=tokens[pos];
   if(t.type==='NUMBER'){
     return{success:true,node:{type:'num',value:t.value},nextPos:pos+1};
@@ -742,18 +713,14 @@ function isLinearExpr(node){
   if(!node||node.type==='num'||node.type==='var')return true;
   if(node.type==='op'){
     if(node.op==='*'||node.op==='/'){
-      let l=collectVars(node.left),r=collectVars(node.right);
-      if(l.length>0&&r.length>0)return false;
+      let l=collectVars(node.left), r=collectVars(node.right);
+      if(l.length>0 && r.length>0) return false;
     }
     return isLinearExpr(node.left)&&isLinearExpr(node.right);
   }
   return true;
 }
 
-
-/***************************************************
- * 4) EVAL & CHECK
- ***************************************************/
 function evalAST(node,varVals){
   if(!node)return 0;
   if(node.type==='num')return node.value;
@@ -761,13 +728,13 @@ function evalAST(node,varVals){
     return varVals[node.name]||0;
   }
   if(node.type==='op'){
-    let L=evalAST(node.left,varVals);
-    let R=evalAST(node.right,varVals);
+    const L=evalAST(node.left,varVals);
+    const R=evalAST(node.right,varVals);
     if(node.op==='+')return L+R;
     if(node.op==='-')return L-R;
     if(node.op==='*')return L*R;
     if(node.op==='/'){
-      if(Math.abs(R)<1e-14)return NaN;
+      if(Math.abs(R)<1e-14)return NaN; 
       return L/R;
     }
   }
@@ -781,13 +748,8 @@ function checkEquation(eqObj,varVals){
   return Math.abs(evalEq(eqObj,varVals))<1e-6;
 }
 
-
-/***************************************************
- * 5) TERM-KOMBINATION & VEREINFACHUNG
- ***************************************************/
 function collectAndCombineTerms(node){
   let terms={vars:{},constants:0};
-
   function traverse(curr){
     if(!curr)return;
     if(curr.type==='op'){
@@ -800,9 +762,11 @@ function collectAndCombineTerms(node){
       else if(curr.op==='*'){
         if(curr.left.type==='num'&&curr.right.type==='var'){
           terms.vars[curr.right.name]=(terms.vars[curr.right.name]||0)+curr.left.value;
-        } else if(curr.right.type==='num'&&curr.left.type==='var'){
+        } 
+        else if(curr.right.type==='num'&&curr.left.type==='var'){
           terms.vars[curr.left.name]=(terms.vars[curr.left.name]||0)+curr.right.value;
-        } else if(curr.left.type==='num'&&curr.right.type==='num'){
+        } 
+        else if(curr.left.type==='num'&&curr.right.type==='num'){
           terms.constants+=curr.left.value*curr.right.value;
         }
       }
@@ -810,7 +774,8 @@ function collectAndCombineTerms(node){
         if(curr.right.type==='num'){
           if(curr.left.type==='var'){
             terms.vars[curr.left.name]=(terms.vars[curr.left.name]||0)+(1/curr.right.value);
-          } else if(curr.left.type==='num'){
+          } 
+          else if(curr.left.type==='num'){
             terms.constants+=curr.left.value/curr.right.value;
           }
         }
@@ -823,7 +788,6 @@ function collectAndCombineTerms(node){
       terms.vars[curr.name]=(terms.vars[curr.name]||0)+1;
     }
   }
-
   function traverseNeg(curr){
     if(!curr)return;
     if(curr.type==='op'){
@@ -862,7 +826,6 @@ function collectAndCombineTerms(node){
       terms.vars[curr.name]=(terms.vars[curr.name]||0)-1;
     }
   }
-
   traverse(node);
   return terms;
 }
@@ -875,11 +838,7 @@ function rebuildAST(terms){
     if(Math.abs(c-1)<1e-14){
       nodes.push({type:'var',name:v});
     } else {
-      nodes.push({
-        type:'op',op:'*',
-        left:{type:'num',value:c},
-        right:{type:'var',name:v}
-      });
+      nodes.push({type:'op',op:'*',left:{type:'num',value:c},right:{type:'var',name:v}});
     }
   }
   if(Math.abs(terms.constants)>1e-14){
@@ -915,10 +874,10 @@ function simplifyAST(node){
 }
 
 function isRedundant(eqObj){
-  let left=collectAndCombineTerms(eqObj.astLeft);
-  let right=collectAndCombineTerms(eqObj.astRight);
-  let leftVars=Object.keys(left.vars).length>0;
-  let rightVars=Object.keys(right.vars).length>0;
+  const left=collectAndCombineTerms(eqObj.astLeft);
+  const right=collectAndCombineTerms(eqObj.astRight);
+  const leftVars=Object.keys(left.vars).length>0;
+  const rightVars=Object.keys(right.vars).length>0;
   if(!leftVars&&!rightVars){
     return Math.abs(left.constants-right.constants)<1e-6;
   }
@@ -926,19 +885,15 @@ function isRedundant(eqObj){
 }
 
 function simplifyEquation(eqObj){
-  const MAX=20; let count=0,prevL=null,prevR=null;
-  while(count<MAX&&(
-    JSON.stringify(eqObj.astLeft)!==prevL||
-    JSON.stringify(eqObj.astRight)!==prevR
-  )){
+  const MAX=20; 
+  let count=0,prevL=null,prevR=null;
+  while(count<MAX&&(JSON.stringify(eqObj.astLeft)!==prevL||JSON.stringify(eqObj.astRight)!==prevR)){
     prevL=JSON.stringify(eqObj.astLeft);
     prevR=JSON.stringify(eqObj.astRight);
     eqObj.astLeft=simplifyAST(eqObj.astLeft);
     eqObj.astRight=simplifyAST(eqObj.astRight);
-
     let leftT=collectAndCombineTerms(eqObj.astLeft);
     let rightT=collectAndCombineTerms(eqObj.astRight);
-
     eqObj.astLeft=rebuildAST(leftT);
     eqObj.astRight=rebuildAST(rightT);
     count++;
@@ -946,18 +901,12 @@ function simplifyEquation(eqObj){
   return eqObj;
 }
 
-
-/***************************************************
- * 6) LÖSEN
- ***************************************************/
 function solveOneVar(eqObj,vname){
   let z0={[vname]:0}, d0=evalEq(eqObj,z0);
   let z1={[vname]:1}, d1=evalEq(eqObj,z1);
   let a=d1-d0;
   if(Math.abs(a)<1e-14){
-    if(Math.abs(d0)<1e-14){
-      return{[vname]:'Unendlich viele Lösungen'};
-    }
+    if(Math.abs(d0)<1e-14) return{[vname]:'Unendlich viele Lösungen'};
     return{[vname]:'Keine Lösung'};
   }
   let x=-d0/a;
@@ -998,12 +947,12 @@ function solveLinearSystem(eqs,vars){
     }
     let a1=coefs[0][0],b1=coefs[0][1],c1=consts[0];
     let a2=coefs[1][0],b2=coefs[1][1],c2=consts[1];
-    let D=a1*b2-a2*b1;
+    let D=a1*b2 - a2*b1;
     if(Math.abs(D)<1e-14){
       return{error:'Unendlich viele oder keine Lösungen (2V)'};
     }
-    let x=(c1*b2-c2*b1)/D;
-    let y=(a1*c2-a2*c1)/D;
+    let x=(c1*b2 - c2*b1)/D;
+    let y=(a1*c2 - a2*c1)/D;
     let sol={};
     sol[vars[0]]=Math.round(x*100000)/100000;
     sol[vars[1]]=Math.round(y*100000)/100000;
@@ -1021,7 +970,6 @@ function solveVars(parsedEqs,vars){
   let toSolve=vars.filter(v=>!(v in substitutions));
   let varVals=solveLinearSystem(parsedEqs,toSolve);
   if(varVals.error)return varVals;
-
   for(let vn in substitutions){
     let subAST=substitutions[vn];
     let val=evalAST(subAST,varVals);
@@ -1034,10 +982,6 @@ function solveVars(parsedEqs,vars){
   return varVals;
 }
 
-
-/***************************************************
- * 7) SUBSTITUTION
- ***************************************************/
 function substituteVariable(astNode,varName,newNode){
   if(!astNode)return null;
   if(astNode.type==='var'&&astNode.name===varName){
@@ -1052,6 +996,7 @@ function substituteVariable(astNode,varName,newNode){
   }
   return astNode;
 }
+
 function substituteVarInAllEquations(varName,newAst){
   parsedEquationsList=parsedEquationsList.map(eqObj=>{
     eqObj.astLeft=substituteVariable(eqObj.astLeft,varName,newAst);
@@ -1061,10 +1006,6 @@ function substituteVarInAllEquations(varName,newAst){
   }).filter(e=>!isRedundant(e));
 }
 
-
-/***************************************************
- * 8) APPLY-MANIPULATION
- ***************************************************/
 function applyManipulation(eqObj, manipulation){
   if(manipulation.type==='constant'){
     eqObj.astLeft={type:'op',op:'+',left:eqObj.astLeft,right:{type:'num',value:manipulation.value}};
@@ -1097,10 +1038,6 @@ function applyManipulation(eqObj, manipulation){
   simplifyEquation(eqObj);
 }
 
-
-/***************************************************
- * 9) expandNode => Negative V => base=|v|, overlay=2|v|
- ***************************************************/
 function expandNode(node,varVals){
   let segs=[];
   if(!node)return segs;
@@ -1114,7 +1051,6 @@ function expandNode(node,varVals){
     } 
     else if(v<0){
       let absV=Math.abs(v);
-      // Hier: base=absV, overlay=2*absV => Netto=-absV
       segs.push({
         type:'overlayVar',
         var: node.name,
@@ -1156,7 +1092,6 @@ function expandNode(node,varVals){
           segs=segs.concat(L.map(s=>({...s,value:s.value*m})));
         }
       } else {
-        // fallback
         let sumR=R.reduce((acc,xx)=>acc+Math.abs(xx.value||0),0);
         segs=L.map(ss=>({...ss,value:ss.value*sumR}));
       }
@@ -1180,50 +1115,61 @@ function expandNode(node,varVals){
   return segs;
 }
 
-
-/***************************************************
- * Hilfskurz
- ***************************************************/
-function sumSegments(segs){
-  // Summe der Absolutwerte
-  return segs.reduce((acc,s)=>acc+Math.abs(s.value||0),0);
+function astToString(node){
+  if(!node) return '';
+  if(node.type==='num'){
+    if(node.value<0){
+      return '('+node.value+')';
+    }
+    return ''+node.value;
+  }
+  if(node.type==='var'){
+    return node.name;
+  }
+  if(node.type==='op'){
+    const L=astToString(node.left);
+    const R=astToString(node.right);
+    return L+node.op+R;
+  }
+  return '';
 }
 
-function createExpressionData(astLeft,astRight,vars,varVals,eqObj){
+function eqToString(eqObj){
+  const lhs=astToString(eqObj.astLeft);
+  const rhs=astToString(eqObj.astRight);
+  return lhs+'='+rhs;
+}
+
+function createExpressionData(eqObj,varVals){
   if(isRedundant(eqObj))return null;
-  let leftSeg=expandNode(astLeft,varVals);
-  let rightSeg=expandNode(astRight,varVals);
+  let leftSeg=expandNode(eqObj.astLeft,varVals);
+  let rightSeg=expandNode(eqObj.astRight,varVals);
+  let eqString=eqToString(eqObj);
   return{
     left:{segments:leftSeg},
-    right:{segments:rightSeg}
+    right:{segments:rightSeg},
+    eqString
   };
 }
 
-
-/***************************************************
- * 10) STRIP-SETUP + UPDATE
- ***************************************************/
 function setupStrips(){
   stripArea.innerHTML='';
   expressionDatas.forEach((exprData,i)=>{
     if(!exprData)return;
-    // eq-container
     let eqCont=document.createElement('div');
     eqCont.classList.add('eq-container');
-    // wrapper left
+    let label=document.createElement('div');
+    label.classList.add('eq-label');
+    label.textContent=exprData.eqString; 
+    eqCont.appendChild(label);
     let swL=document.createElement('div');
     swL.classList.add('strip-wrapper');
-    // wrapper right
     let swR=document.createElement('div');
     swR.classList.add('strip-wrapper');
-    // container left
     let scL=document.createElement('div');
     scL.classList.add('strip-container');
-    // container right
     let scR=document.createElement('div');
     scR.classList.add('strip-container');
-
-    // NUR EINMAL eq1LeftStrip,... ZUWEISEN
     if(i===0){
       eq1LeftStrip=scL; 
       eq1RightStrip=scR;
@@ -1236,6 +1182,10 @@ function setupStrips(){
     eqCont.appendChild(swL);
     eqCont.appendChild(swR);
     stripArea.appendChild(eqCont);
+    exprData.eqContainer=eqCont;
+    exprData.eqLabel=label;
+    exprData.leftWrapper=swL;
+    exprData.rightWrapper=swR;
   });
 }
 
@@ -1245,46 +1195,24 @@ function updateStrips(){
     if(!exprData)return;
     let leftStrip=(i===0?eq1LeftStrip:eq2LeftStrip);
     let rightStrip=(i===0?eq1RightStrip:eq2RightStrip);
-    if(!leftStrip||!rightStrip)return;
-
     leftStrip.innerHTML='';
     rightStrip.innerHTML='';
-
-    // eqWidth => wir suchen max( leftPos, rightPos )
+    exprData.eqLabel.style.display=tipOpen?'block':'none';
     let leftPos=0;
     exprData.left.segments.forEach(s=>{
       if(s.type==='overlayVar'){
-        // overlayValue
-        leftPos+= s.overlayValue;
-      }
-      else if(typeof s.value==='number'){
-        leftPos+= Math.abs(s.value);
+      } else if(typeof s.value==='number' && s.value>0){
+        leftPos+= s.value;
       }
     });
-    let rightPos=0;
-    exprData.right.segments.forEach(s=>{
-      if(s.type==='overlayVar'){
-        rightPos+= s.overlayValue;
-      }
-      else if(typeof s.value==='number'){
-        rightPos+= Math.abs(s.value);
-      }
-    });
-    let baseWidth=Math.max(leftPos,rightPos);
-    let eqWidth=(baseWidth*PX_FACTOR)+WRAPPER_PADDING;
-
-    // Jetzt füllen
-    // ------ link side ------
     exprData.left.segments.forEach(s=>{
       if(s.type==='overlayVar'){
-        // base= s.baseValue, overlay = s.overlayValue
         let container=document.createElement('div');
         container.classList.add('segment','seg-base-zero');
-        container.style.width= (s.baseValue * PX_FACTOR)+'px';
-
+        container.style.width=(s.baseValue*PX_FACTOR)+'px';
         let overlay=document.createElement('div');
         overlay.classList.add('seg-overlay');
-        overlay.style.width=(s.overlayValue * PX_FACTOR)+'px';
+        overlay.style.width=(s.overlayValue*PX_FACTOR)+'px';
         overlay.textContent=s.label;
         container.appendChild(overlay);
         leftStrip.appendChild(container);
@@ -1295,22 +1223,23 @@ function updateStrips(){
         if(s.type==='var') d.classList.add('var');
         if(s.value<0) d.classList.add('negative');
         let numericVal=Math.abs(s.value);
-        d.textContent=(s.value<0 && s.type==='var')?('-'+s.var):(s.type==='var'?s.var:s.value.toString());
+        if(s.type==='var'){
+          d.textContent=(s.value<0)?('-'+s.var):(s.var);
+        } else {
+          d.textContent=s.value.toString();
+        }
         d.style.width=(numericVal*PX_FACTOR)+'px';
         leftStrip.appendChild(d);
       }
     });
-
-    // ------ right side ------
     exprData.right.segments.forEach(s=>{
       if(s.type==='overlayVar'){
         let container=document.createElement('div');
         container.classList.add('segment','seg-base-zero');
-        container.style.width=(s.baseValue * PX_FACTOR)+'px';
-
+        container.style.width=(s.baseValue*PX_FACTOR)+'px';
         let overlay=document.createElement('div');
         overlay.classList.add('seg-overlay');
-        overlay.style.width=(s.overlayValue * PX_FACTOR)+'px';
+        overlay.style.width=(s.overlayValue*PX_FACTOR)+'px';
         overlay.textContent=s.label;
         container.appendChild(overlay);
         rightStrip.appendChild(container);
@@ -1321,24 +1250,32 @@ function updateStrips(){
         if(s.type==='var') d.classList.add('var');
         if(s.value<0) d.classList.add('negative');
         let numericVal=Math.abs(s.value);
-        d.textContent=(s.value<0 && s.type==='var')?('-'+s.var):(s.type==='var'?s.var:s.value.toString());
+        if(s.type==='var'){
+          d.textContent=(s.value<0)?('-'+s.var):(s.var);
+        } else {
+          d.textContent=s.value.toString();
+        }
         d.style.width=(numericVal*PX_FACTOR)+'px';
         rightStrip.appendChild(d);
       }
     });
-
-    leftStrip.parentElement.style.width=eqWidth+'px';
-    rightStrip.parentElement.style.width=eqWidth+'px';
-
+    let eqWidth=leftPos*PX_FACTOR+WRAPPER_PADDING;
+    exprData.leftWrapper.style.width=eqWidth+'px';
+    exprData.rightWrapper.style.width=eqWidth+'px';
+    let eqContWidth=exprData.eqContainer.clientWidth;
+    if(eqWidth>eqContWidth){
+      let scale=eqContWidth/eqWidth;
+      exprData.leftWrapper.style.transform=`scale(${scale})`;
+      exprData.rightWrapper.style.transform=`scale(${scale})`;
+    } else {
+      exprData.leftWrapper.style.transform='';
+      exprData.rightWrapper.style.transform='';
+    }
     makeSegmentsDraggable(leftStrip);
     makeSegmentsDraggable(rightStrip);
   });
 }
 
-
-/***************************************************
- * 11) DRAG & DROP
- ***************************************************/
 function makeSegmentsDraggable(container){
   container.querySelectorAll('.segment').forEach(seg=>{
     seg.draggable=true;
@@ -1386,18 +1323,15 @@ function makeSegmentsDraggable(container){
 
 function updateEquationAfterDrag(){
   expressionDatas=parsedEquationsList.map(eqObj=>
-    createExpressionData(eqObj.astLeft,eqObj.astRight,variables,globalVarVals,eqObj)
+    createExpressionData(eqObj,globalVarVals)
   ).filter(e=>e!==null);
+  setupStrips();
   updateStrips();
 }
 
-
-/***************************************************
- * 12) LOAD-EQUATION + LISTENER
- ***************************************************/
 eq1Input.addEventListener('input',()=>{
   let eq=parseEquation(eq1Input.value);
-  if(eq.success&&eq.vars.length>1){
+  if(eq.success && eq.vars.length>1){
     eq2ContainerEl.classList.remove('hidden');
   } else {
     eq2ContainerEl.classList.add('hidden');
@@ -1412,7 +1346,6 @@ loadEquationBtn.addEventListener('click',()=>{
   variables=[];
   globalVarVals={};
   substitutions={};
-
   if(!eq1){
     equationFeedback.style.color='red';
     equationFeedback.textContent='Bitte mindestens eine Gleichung eingeben.';
@@ -1426,7 +1359,6 @@ loadEquationBtn.addEventListener('click',()=>{
   }
   eq1res=simplifyEquation(eq1res);
   parsedEquationsList.push(eq1res);
-
   let allVars=[...eq1res.vars];
   if(allVars.length>1){
     if(!eq2){
@@ -1449,30 +1381,27 @@ loadEquationBtn.addEventListener('click',()=>{
   } else {
     intermediateResultContainer.classList.add('hidden');
   }
-
   variables=allVars;
   parsedEquationsList=parsedEquationsList.filter(e=>!isRedundant(e));
-
   let varVals=solveVars(parsedEquationsList,variables);
   if(varVals.error){
     equationFeedback.style.color='red';
     equationFeedback.textContent=varVals.error;
-    setupStrips();updateStrips();updateVariableInputs();
+    setupStrips();
+    updateStrips();
+    updateVariableInputs();
     return;
   }
   globalVarVals=varVals;
-
   parsedEquationsList.forEach(eqObj=>{
-    let expr=createExpressionData(eqObj.astLeft,eqObj.astRight,variables,globalVarVals,eqObj);
+    let expr=createExpressionData(eqObj,globalVarVals);
     if(expr) expressionDatas.push(expr);
   });
-
   equationFeedback.style.color='green';
   equationFeedback.textContent='Gleichung(en) übernommen.';
   setupStrips();
   updateStrips();
   updateVariableInputs();
-
   solutionFeedback.textContent='';
   manipFeedback.textContent='';
   intermediateFeedback.textContent='';
@@ -1481,29 +1410,22 @@ loadEquationBtn.addEventListener('click',()=>{
   tipOpen=false;
 });
 
-
-/***************************************************
- * 13) APPLY-MANIPULATION
- ***************************************************/
 applyManipulationBtn.addEventListener('click',()=>{
   const val=manipulationInput.value.trim();
   if(!val)return;
   let c=val.replace(',','.').replace(/\(/g,'').replace(/\)/g,'');
   let manipObj=null;
-
   if(c[0]==='*'||c[0]==='/'){
     let op=c[0];
     let operand=c.substring(1).trim();
     let parseOp=parseFloat(operand);
     if(!isNaN(parseOp)){
-      // z.B. *2 oder /3
       if(op==='*'){
         manipObj={type:'mul-const',value:parseOp};
       } else {
         manipObj={type:'div-const',value:parseOp};
       }
     } else {
-      // "*k" oder "/x"
       if(op==='*'){
         manipObj={type:'mul-var',varName:operand};
       } else {
@@ -1516,7 +1438,6 @@ applyManipulationBtn.addEventListener('click',()=>{
     if(!isNaN(parseNum)){
       manipObj={type:'constant',value:parseNum};
     } else {
-      // z.B. -2x
       let re=/^([+-]?)(\d*)([a-z])$/i;
       let m=c.match(re);
       if(m){
@@ -1526,8 +1447,7 @@ applyManipulationBtn.addEventListener('click',()=>{
         if(sign==='-') coeff=-coeff;
         manipObj={
           type:'variable',
-          term:{
-            type:'op',op:'*',
+          term:{type:'op',op:'*',
             left:{type:'num',value:coeff},
             right:{type:'var',name:vName}
           }
@@ -1539,21 +1459,18 @@ applyManipulationBtn.addEventListener('click',()=>{
       }
     }
   }
-
   if(!manipObj){
     manipFeedback.style.color='red';
     manipFeedback.textContent='Ungültige Eingabe.';
     return;
   }
-
   parsedEquationsList.forEach(eqObj=>{
     applyManipulation(eqObj,manipObj);
   });
   parsedEquationsList=parsedEquationsList.filter(e=>!isRedundant(e));
   expressionDatas=parsedEquationsList.map(eqObj=>
-    createExpressionData(eqObj.astLeft,eqObj.astRight,variables,globalVarVals,eqObj)
+    createExpressionData(eqObj,globalVarVals)
   ).filter(e=>e!==null);
-
   globalVarVals=solveVars(parsedEquationsList,variables);
   if(globalVarVals.error){
     manipFeedback.style.color='red';
@@ -1562,64 +1479,25 @@ applyManipulationBtn.addEventListener('click',()=>{
     return;
   }
   expressionDatas=parsedEquationsList.map(eqObj=>
-    createExpressionData(eqObj.astLeft,eqObj.astRight,variables,globalVarVals,eqObj)
+    createExpressionData(eqObj,globalVarVals)
   ).filter(e=>e!==null);
-
   setupStrips();
   updateStrips();
-
-  if(tipOpen) showEquation();
   manipFeedback.style.color='green';
   manipFeedback.textContent='Operation angewendet.';
 });
 
-
-/***************************************************
- * 14) AST->String (Tipp)
- ***************************************************/
-function astToString(node){
-  if(!node)return'';
-  if(node.type==='num')return node.value.toString();
-  if(node.type==='var')return node.name;
-  if(node.type==='op'){
-    let L=astToString(node.left);
-    let R=astToString(node.right);
-    return `(${L} ${node.op} ${R})`;
-  }
-  return'';
-}
-
 function showEquation(){
-  if(!parsedEquationsList.length){
-    equationTip.style.color='red';
-    equationTip.textContent='Keine aktuelle Gleichung verfügbar.';
-    return;
-  }
-  let lines=[];
-  parsedEquationsList.forEach((eqObj,i)=>{
-    let lhs=astToString(eqObj.astLeft).replace(/\(([^\(\)]+)\)/g,'$1');
-    let rhs=astToString(eqObj.astRight).replace(/\(([^\(\)]+)\)/g,'$1');
-    lines.push(`Gleichung ${i+1}: ${lhs} = ${rhs}`);
-  });
-  equationTip.style.color='green';
-  equationTip.textContent=lines.join(' | ');
-}
-
-showEquationBtn.addEventListener('click',()=>{
+  tipOpen=!tipOpen;
   if(!tipOpen){
-    equationTip.classList.remove('hidden');
-    showEquation();
-    tipOpen=true;
-  } else {
     equationTip.classList.add('hidden');
-    tipOpen=false;
+  } else {
+    equationTip.classList.remove('hidden');
   }
-});
+  updateStrips();
+}
+showEquationBtn.addEventListener('click', showEquation);
 
-
-/***************************************************
- * 15) LÖSUNGSPRÜFUNG
- ***************************************************/
 checkSolutionBtn.addEventListener('click',()=>{
   let userSol={}, allFilled=true;
   variables.forEach(v=>{
@@ -1627,11 +1505,13 @@ checkSolutionBtn.addEventListener('click',()=>{
     if(inp){
       let val=inp.value.trim().replace(',','.');
       if(val===''){
-        allFilled=false; userSol[v]=NaN;
+        allFilled=false; 
+        userSol[v]=NaN;
       } else {
         let p=parseFloat(val);
         if(isNaN(p)){
-          allFilled=false; userSol[v]=NaN;
+          allFilled=false; 
+          userSol[v]=NaN;
         } else {
           userSol[v]=p;
         }
@@ -1653,10 +1533,6 @@ checkSolutionBtn.addEventListener('click',()=>{
   }
 });
 
-
-/***************************************************
- * 16) ZWISCHENERGEBNIS
- ***************************************************/
 applyIntermediateResultBtn.addEventListener('click',()=>{
   let val=intermediateResultInput.value.trim();
   if(!val){
@@ -1682,26 +1558,22 @@ applyIntermediateResultBtn.addEventListener('click',()=>{
   let simpl=simplifyAST(rightAST);
   let terms=collectAndCombineTerms(simpl);
   let sub=rebuildAST(terms);
-
   substitutions[varToSub]=sub;
   substituteVarInAllEquations(varToSub,sub);
   parsedEquationsList=parsedEquationsList.filter(e=>!isRedundant(e));
   intermediateResultContainer.classList.add('hidden');
   intermediateResultInput.value='';
   intermediateFeedback.textContent='';
-
   let sol=solveVars(parsedEquationsList,variables);
   if(sol.error){
     intermediateFeedback.style.color='red';
     intermediateFeedback.textContent=sol.error;
-    setupStrips();
-    updateStrips();
-    updateVariableInputs();
+    setupStrips(); updateStrips(); updateVariableInputs();
     return;
   }
   globalVarVals=sol;
   expressionDatas=parsedEquationsList.map(eqObj=>
-    createExpressionData(eqObj.astLeft,eqObj.astRight,variables,globalVarVals,eqObj)
+    createExpressionData(eqObj,globalVarVals)
   ).filter(e=>e!==null);
   setupStrips();
   updateStrips();
@@ -1711,10 +1583,6 @@ applyIntermediateResultBtn.addEventListener('click',()=>{
   if(tipOpen) showEquation();
 });
 
-
-/***************************************************
- * 17) AKKORDEON & TABS
- ***************************************************/
 document.querySelectorAll('.accordion-header').forEach(hdr=>{
   hdr.addEventListener('click',()=>{
     let tgt=hdr.getAttribute('data-target');
@@ -1732,10 +1600,6 @@ document.querySelectorAll('nav a').forEach(tab=>{
   });
 });
 
-
-/***************************************************
- * 18) ÜBUNGEN LADEN
- ***************************************************/
 document.querySelectorAll('.load-ex').forEach(link=>{
   link.addEventListener('click',(e)=>{
     e.preventDefault();
@@ -1766,10 +1630,6 @@ document.querySelectorAll('.load-ex2').forEach(link=>{
   });
 });
 
-
-/***************************************************
- * 19) updateVariableInputs
- ***************************************************/
 function updateVariableInputs(){
   varInputsDiv.innerHTML='';
   variables.forEach(v=>{
@@ -1785,9 +1645,14 @@ function updateVariableInputs(){
   });
 }
 
-/************************************
- * GESAMTER CODE ENDE
- ************************************/
+window.addEventListener('resize',()=>{
+  setupStrips();
+  updateStrips();
+});
+window.addEventListener('orientationchange',()=>{
+  setupStrips();
+  updateStrips();
+});
 });
 </script>
 </body>
